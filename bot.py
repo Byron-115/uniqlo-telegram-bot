@@ -161,11 +161,11 @@ def main():
     print(f"🚀 Iniciando monitor de ofertas para el producto {PRODUCT_ID}.")
     print(f"Se comprobará cada {intervalo_minutos} minutos.")
     
-    while True:
-        print(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}]")
-        comprobar_oferta()
-        print(f"--- Esperando {intervalo_minutos} minutos para la próxima revisión ---")
-        time.sleep(intervalo_minutos * 60)
+    # while True:
+    #     print(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}]")
+    #     comprobar_oferta()
+    #     print(f"--- Esperando {intervalo_minutos} minutos para la próxima revisión ---")
+    #     time.sleep(intervalo_minutos * 60)
 
 if __name__ == "__main__":
     main()
