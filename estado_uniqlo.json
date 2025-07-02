@@ -1,0 +1,403 @@
+[
+  {
+    "id": "E477340-000",
+    "nombre": "AIRism Camiseta algodón cuello redondo (rayas)",
+    "color": "BLANCO",
+    "precio": 14.9,
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E477340-000"
+  },
+  {
+    "id": "E469322-000",
+    "nombre": "AIRism Camiseta algodón cuello alzado",
+    "color": "BLANCO",
+    "precio": 9.9,
+    "tallas": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E469322-000"
+  },
+  {
+    "id": "E422992-000",
+    "nombre": "Camiseta cuello redondo",
+    "color": "MARRÓN OSCURO",
+    "precio": 1,
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL",
+      "3XL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E422992-000"
+  },
+  {
+    "id": "E465189-000",
+    "nombre": "Camiseta DRY canalé (sin mangas)",
+    "color": "NEGRO",
+    "precio": 7.9,
+    "tallas": [
+      "XXL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E465189-000"
+  },
+  {
+    "id": "E476216-000",
+    "nombre": "Camiseta cuello redondo (manga media)",
+    "color": "AMARILLO",
+    "precio": 5.9,
+    "tallas": [
+      "XL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E476216-000"
+  },
+  {
+    "id": "E476430-000",
+    "nombre": "Camiseta oversize (color block)",
+    "color": "VERDE",
+    "precio": 5.9,
+    "tallas": [
+      "M"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E476430-000"
+  },
+  {
+    "id": "E475366-000",
+    "nombre": "Camiseta oversize (color block)",
+    "color": "BURDEOS",
+    "precio": 5.9,
+    "tallas": [
+      "L"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E475366-000"
+  },
+  {
+    "id": "E478984-000",
+    "nombre": "AIRism Camiseta algodón",
+    "color": "NEGRO",
+    "precio": 14.9,
+    "tallas": [
+      "XS",
+      "S"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E478984-000"
+  },
+  {
+    "id": "E448759-000",
+    "nombre": "AIRism Camiseta Cuello Pico",
+    "color": "NEGRO",
+    "precio": 9.9,
+    "tallas": [
+      "XS"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E448759-000"
+  },
+  {
+    "id": "E478988-000",
+    "nombre": "Chaqueta ultraelástica deportiva",
+    "color": "NEGRO",
+    "precio": 39.9,
+    "tallas": [
+      "XS",
+      "S"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E478988-000"
+  },
+  {
+    "id": "E476144-000",
+    "nombre": "Chaqueta ultraelástica deportiva protección UV",
+    "color": "NEGRO",
+    "precio": 9.9,
+    "tallas": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E476144-000"
+  },
+  {
+    "id": "E475381-000",
+    "nombre": "Sudadera media cremallera",
+    "color": "BLANCO OSCURO",
+    "precio": 12.9,
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E475381-000"
+  },
+  {
+    "id": "E476119-000",
+    "nombre": "KAWS + Warhol UT Sudadera estampada",
+    "color": "NEGRO",
+    "precio": 9.9,
+    "tallas": [
+      "XS",
+      "S",
+      "M"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E476119-000"
+  },
+  {
+    "id": "E480260-000",
+    "nombre": "Sudadera punto 3D sin costuras capucha",
+    "color": "AZUL MARINO",
+    "precio": 39.9,
+    "tallas": [
+      "XL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E480260-000"
+  },
+  {
+    "id": "E477817-000",
+    "nombre": "PEANUTS UT Camiseta",
+    "color": "VERDE OLIVA",
+    "precio": 12.9,
+    "tallas": [
+      "XS"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E477817-000"
+  },
+  {
+    "id": "E475746-000",
+    "nombre": "PEANUTS UT Camiseta",
+    "color": "BEIGE CLARO",
+    "precio": 12.9,
+    "tallas": [
+      "XS"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E475746-000"
+  },
+  {
+    "id": "E477818-000",
+    "nombre": "PEANUTS UT Camiseta",
+    "color": "GRIS OSCURO",
+    "precio": 12.9,
+    "tallas": [
+      "XS"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E477818-000"
+  },
+  {
+    "id": "E480143-000",
+    "nombre": "Mobile Suit GUNDAM 45th Anniversary UT Camiseta",
+    "color": "NEGRO",
+    "precio": 12.9,
+    "tallas": [
+      "XS",
+      "S"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E480143-000"
+  },
+  {
+    "id": "E480144-000",
+    "nombre": "Mobile Suit GUNDAM 45th Anniversary UT Camiseta",
+    "color": "BLANCO",
+    "precio": 12.9,
+    "tallas": [
+      "XS",
+      "S"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E480144-000"
+  },
+  {
+    "id": "E478520-000",
+    "nombre": "Disney in Blue UT Pantalón corto",
+    "color": "AZUL",
+    "precio": 9.9,
+    "tallas": [
+      "XS",
+      "XL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E478520-000"
+  },
+  {
+    "id": "E478102-000",
+    "nombre": "Disney in Blue UT Camisa",
+    "color": "AZUL",
+    "precio": 14.9,
+    "tallas": [
+      "S"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E478102-000"
+  },
+  {
+    "id": "E474442-000",
+    "nombre": "Disney In Blue UT Camiseta",
+    "color": "AZUL",
+    "precio": 9.9,
+    "tallas": [
+      "S"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E474442-000"
+  },
+  {
+    "id": "E480140-000",
+    "nombre": "Disney In Blue UT Camiseta",
+    "color": "AZUL",
+    "precio": 9.9,
+    "tallas": [
+      "XS"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E480140-000"
+  },
+  {
+    "id": "E480139-000",
+    "nombre": "Disney In Blue UT Camiseta",
+    "color": "AZUL",
+    "precio": 9.9,
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "XXL",
+      "3XL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E480139-000"
+  },
+  {
+    "id": "E480786-000",
+    "nombre": "WAGARA (SUMO) UT Camiseta",
+    "color": "AZUL MARINO",
+    "precio": 12.9,
+    "tallas": [
+      "XS"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E480786-000"
+  },
+  {
+    "id": "E480788-000",
+    "nombre": "WAGARA (SUMO) UT Camiseta",
+    "color": "BEIGE CLARO",
+    "precio": 12.9,
+    "tallas": [
+      "XS"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E480788-000"
+  },
+  {
+    "id": "E477703-000",
+    "nombre": "WAGARA (SUMO) UT Camiseta",
+    "color": "BLANCO OSCURO",
+    "precio": 12.9,
+    "tallas": [
+      "XS",
+      "S",
+      "L"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E477703-000"
+  },
+  {
+    "id": "E480787-000",
+    "nombre": "WAGARA (SUMO) UT Camiseta",
+    "color": "BLANCO OSCURO",
+    "precio": 12.9,
+    "tallas": [
+      "XS",
+      "S"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E480787-000"
+  },
+  {
+    "id": "E478489-000",
+    "nombre": "SF Anime UT Camisa (Ghost In The Shell)",
+    "color": "NEGRO",
+    "precio": 9.9,
+    "tallas": [
+      "XS",
+      "S"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E478489-000"
+  },
+  {
+    "id": "E479170-000",
+    "nombre": "SF Anime UT Camisa (Ghost In The Shell)",
+    "color": "BLANCO",
+    "precio": 9.9,
+    "tallas": [
+      "XS",
+      "S"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E479170-000"
+  },
+  {
+    "id": "E479728-000",
+    "nombre": "Universal Movies UT Camiseta (Casper)",
+    "color": "NEGRO",
+    "precio": 9.9,
+    "tallas": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E479728-000"
+  },
+  {
+    "id": "E478107-000",
+    "nombre": "Disney's Mickey Faces UT Camiseta",
+    "color": "AZUL",
+    "precio": 5.9,
+    "tallas": [
+      "XS"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E478107-000"
+  },
+  {
+    "id": "E474441-000",
+    "nombre": "Disney's Mickey Faces UT Camiseta",
+    "color": "AZUL MARINO",
+    "precio": 5.9,
+    "tallas": [
+      "XS"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E474441-000"
+  },
+  {
+    "id": "E474416-000",
+    "nombre": "UT Archive NY Pop Art UT Camiseta (Andy Warhol)",
+    "color": "BLANCO",
+    "precio": 9.9,
+    "tallas": [
+      "XS",
+      "XXL"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E474416-000"
+  },
+  {
+    "id": "E473556-000",
+    "nombre": "KAWS + Warhol UT Bolsa tela estampada",
+    "color": "BLANCO OSCURO",
+    "precio": 3.9,
+    "tallas": [
+      "Talla única"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E473556-000"
+  },
+  {
+    "id": "E474138-000",
+    "nombre": "KAWS + Warhol UT Chaqueta estampada",
+    "color": "NEGRO",
+    "precio": 19.9,
+    "tallas": [
+      "M"
+    ],
+    "link": "https://www.uniqlo.com/es/es/products/E474138-000"
+  }
+]
