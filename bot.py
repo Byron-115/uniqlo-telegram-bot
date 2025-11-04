@@ -207,9 +207,19 @@ if __name__ == "__main__":
 
     print("Iniciando servidor web para mantener el bot activo...")
     # 1. Iniciar el servidor Flask en un hilo separado
-    flask_thread = Thread(target=run_flask_app)
-    flask_thread.start()
+    monitor_thread = Thread(target=main, daemon=True)
+    monitor_thread.start()
 
     # 2. Iniciar el bucle principal del bot
     print("Iniciando el bot de monitorización de ofertas...")
-    main()
+    try: 
+        port = int(os.environ.get("PORT"))
+        app.run(host='0.0.0.0', port=port)
+
+    except TypeError:
+        print("-------------------------------------------------------")
+        print("❌ ERROR: La variable de entorno 'PORT' no está definida.")
+        print("Asegúrate de estar en Railway/Render.")
+        print("El script no puede iniciarse sin un puerto asignado.")
+        print("-------------------------------------------------------")
+        raise
