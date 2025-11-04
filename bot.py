@@ -6,6 +6,27 @@ from datetime import datetime
 from dotenv import load_dotenv
 import time
 
+# --- IMPORTACIONES PARA EL SERVIDOR WEB ---
+from threading import Thread
+from flask import Flask
+
+# --- CONFIGURACIÓN DE FLASK ---
+# Creamos servidor web fake para que Railway no cierre el bot por inactividad
+app = Flask(__name__)
+
+@app.route('/')
+def health_check():
+    # Esta es la ruta que Railway usará para comprobar que el bot está activo
+    return "Bot de Uniqlo activo", 200
+
+def run_flask_app():
+    port = int(os.environ.get("PORT", 8000))
+    app.run(host='0.0.0.0', port=port)
+
+# --- FIN CONFIGURACIÓN DE FLASK ---
+
+
+
 # --- CONFIGURACIÓN ---
 # Cargar claves desde .env (TELEGRAM_TOKEN, TELEGRAM_CHAT_ID)
 load_dotenv()
@@ -138,7 +159,7 @@ def enviar_telegram(mensaje):
 
 # --- Funciones para evitar spam de notificaciones ---
 def ya_notificado(product_id):
-    """Comprueba si ya se ha notificado sobre este producto."""
+    # Comprueba si ya se ha notificado sobre este producto
     if not os.path.exists(ESTADO_PATH):
         return False
     with open(ESTADO_PATH, "r") as f:
@@ -146,7 +167,7 @@ def ya_notificado(product_id):
     return product_id in notificados
 
 def marcar_como_notificado(product_id):
-    """Guarda el ID del producto para no volver a notificar."""
+    # Guarda el ID del producto para no volver a notificar
     notificados = []
     if os.path.exists(ESTADO_PATH):
         with open(ESTADO_PATH, "r") as f:
@@ -158,7 +179,7 @@ def marcar_como_notificado(product_id):
             json.dump(notificados, f)
 
 def resetear_notificacion(id_unico_oferta):
-    """Borra el archivo de estado para permitir futuras notificaciones."""
+    # Borra el archivo de estado para permitir futuras notificaciones
     if os.path.exists(ESTADO_PATH):
         os.remove(ESTADO_PATH)
         print("🗑️ Estado de notificación reseteado. Se volverá a notificar si la oferta reaparece.")
@@ -176,5 +197,19 @@ def main():
         print(f"--- Esperando {intervalo_minutos} minutos para la próxima revisión ---")
         time.sleep(intervalo_minutos * 60)
 
+# BORRADO DE PRUEBA: Añade esto temporalmente
+if os.path.exists(ESTADO_PATH):
+    os.remove(ESTADO_PATH)
+    print("¡Archivo de estado borrado para prueba!")
+# Fin de borrado
+
 if __name__ == "__main__":
+
+    print("Iniciando servidor web para mantener el bot activo...")
+    # 1. Iniciar el servidor Flask en un hilo separado
+    flask_thread = Thread(target=run_flask_app)
+    flask_thread.start()
+
+    # 2. Iniciar el bucle principal del bot
+    print("Iniciando el bot de monitorización de ofertas...")
     main()
