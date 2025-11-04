@@ -14,14 +14,14 @@ CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 # --- OBJETIVOS DE LA BÚSQUEDA ---
 #PRODUCT_ID = "E468756-000"
-PRODUCT_ID = "E457428-000"
+PRODUCT_ID = "E469400-000"
 #COLOR_OBJETIVO_CODE = "61"
 #COLOR_OBJETIVO_NOMBRE = "AZUL"
-TALLAS_OBJETIVO = {"S", "M"}
+TALLAS_OBJETIVO = {"003", "S"}  
 
 # URLs
 API_URL = "https://www.uniqlo.com/es/api/commerce/v5/es/products?path=37609%2C%2C%2C&flagCodes=discount&genderId=37609&offset=0&limit=36&imageRatio=3x4&httpFailure=true"
-PRODUCT_URL = f"https://www.uniqlo.com/es/es/products/{PRODUCT_ID}"
+PRODUCT_URL = f"https://www.uniqlo.com/es/es/products/{PRODUCT_ID}/01?colorDisplayCode=30&sizeDisplayCode=008"
 
 # Archivo para evitar notificaciones repetidas
 ESTADO_PATH = "estado_oferta_notificada.json"
@@ -34,82 +34,91 @@ HEADERS = {
 # --- FIN DE LA CONFIGURACIÓN ---
 
 
+import json 
+
 def comprobar_oferta():
     """
-    Busca el producto en la API y comprueba si cumple las condiciones de la oferta.
+    Busca el producto en TODAS las páginas de la API de ofertas y comprueba si
+    cumple las condiciones. VERSIÓN CORREGIDA FINAL.
     """
     print(f"🔗 Consultando API en busca de ofertas para {PRODUCT_ID}...")
-    try:
-        res = requests.get(API_URL, headers=HEADERS, timeout=15)
-        res.raise_for_status()
-    except requests.exceptions.RequestException as e:
-        print(f"❌ Error al conectar con la API: {e}")
-        return
-
-    data = res.json().get("result", {})
-    if not data or not data.get("items"):
-        print("❌ La respuesta de la API no contiene 'items' o está vacía.")
-        return
     
-    # ID único para esta oferta específica 
-    id_unico_oferta = f"{PRODUCT_ID}"
+    offset = 0
+    limit = 36
+    producto_encontrado_en_ofertas = False
 
-    # La API puede devvolver el mismo producto en varios "items" si tiene
-    # diferentes sets de tallas por color. Debemos revisar todos.
-    oferta_encontrada = False
-    for item in data.get("items", []):
-        # 1. Comprobar si es nuestro producto
-        if item.get("productId") != PRODUCT_ID:
-            continue
-        # # 2. Comprobar si nuestro color está en este grupo
-        # colores_del_item = {c.get("displayCode") for c in item.get("colors", [])}
-        # if COLOR_OBJETIVO_CODE not in colores_del_item:
-        #     continue
+    while True:
+        paginated_api_url = f"https://www.uniqlo.com/es/api/commerce/v5/es/products?path=37609%2C%2C%2C&flagCodes=discount&genderId=37609&offset={offset}&limit={limit}&imageRatio=3x4&httpFailure=true"
+        
+        print(f"   - Revisando página (offset={offset})...")
 
-        # --- Si encontramos el producto y el color comprobamos las condiciones ---
-        print(f"✅ Producto encontrados, comprobamos las condiciones...")
-
-        precios = item.get("prices", {})
-        promo_activa = precios.get("promo") is not None
-        es_precio_dual = precios.get("isDualPrice") is True
-    
-        tallas_disponibles = {size.get("name") for size in item.get("sizes", [])}
-        hay_talla_objetivo = not TALLAS_OBJETIVO.isdisjoint(tallas_disponibles)
-
-        print(f"  - ¿Promo activa?: {'Sí' if promo_activa else 'No'}")
-        print(f"  - ¿Precio dual?: {'Sí' if es_precio_dual else 'No'}")
-        print(f"  - ¿Stock en {', '.join(TALLAS_OBJETIVO)}?: {'Sí' if hay_talla_objetivo else 'No'}")
-
-        # Si se cumplen TODAS las condiciones
-        if promo_activa and es_precio_dual and hay_talla_objetivo:
-            if ya_notificado(f"{PRODUCT_ID}"):
-                print("🤫 Oferta ya notificada previamente. No se enviará de nuevo.")
-                oferta_encontrada = True
-            else:
-                print("🎉 ¡OFERTA ENCONTRADA! Enviando notificación...")
-                nombre = item.get("name", "Producto sin nombre")
-                precio_promo = precios.get("promo", {}).get("value", "N/A")
-                precio_base = precios.get("base", {}).get("value", "N/A")
-                tallas_en_stock_objetivo = ", ".join(sorted(list(TALLAS_OBJETIVO.intersection(tallas_disponibles))))
-
-                mensaje = (
-                    f"🚨 <b>¡Oferta encontrada!</b>\n"
-                    f"<a href='{PRODUCT_URL}'>{html.escape(nombre)}</a>\n\n"
-                    f"💰 <b>Precio: {precio_promo}€</b> (antes {precio_base}€)\n"
-                    #f"🎨 <b>Colores:</b> {COLOR_OBJETIVO_NOMBRE}\n"
-                    f"📏 <b>Tallas disponibles:</b> {tallas_en_stock_objetivo}"
-            )
-                enviar_telegram(mensaje)
-                marcar_como_notificado(id_unico_oferta)
-            # Al encontrar la oferta (este nofticada o no), terminamos la función
+        try:
+            res = requests.get(paginated_api_url, headers=HEADERS, timeout=15)
+            res.raise_for_status()
+        except requests.exceptions.RequestException as e:
+            print(f"❌ Error al conectar con la API en la página {offset}: {e}")
             return
-    # Si el bucle termina, significa que no se encontró niguna oferta válida
-    print("❌ No se encontraron ofertas válidas para el producto y color especificados.")
-    # Si estaba noficada, signica que ya no está disponible. La reseteamos
-    if ya_notificado(id_unico_oferta):
-        print("🗑️ Oferta previamente notificada ya no está disponible. Reseteando estado.")
-        resetear_notificacion(id_unico_oferta)
 
+        data = res.json().get("result", {})
+        items = data.get("items", [])
+
+        if not items:
+            print("   - No hay más productos en la lista. Fin de la búsqueda.")
+            break
+
+        for item in items:
+            if item.get("productId") != PRODUCT_ID:
+                continue
+
+            producto_encontrado_en_ofertas = True
+            print(f"✅ ¡Producto {PRODUCT_ID} encontrado en la lista de ofertas! Comprobando tallas y precio...")
+
+            precios = item.get("prices", {})
+            promo_activa = precios.get("promo") is not None
+            
+            # <-- CAMBIO CLAVE: La comprobación de stock se simplifica
+            tallas_disponibles_objetivo = []
+            for size in item.get("sizes", []):
+                # Si la talla está en la lista, asumimos que tiene stock
+                if size.get("name") in TALLAS_OBJETIVO or size.get("displayCode") in TALLAS_OBJETIVO:
+                    tallas_disponibles_objetivo.append(size.get("name") or size.get("displayCode"))
+
+            hay_talla_objetivo_con_stock = len(tallas_disponibles_objetivo) > 0
+
+            print(f"   - ¿Promo activa?: {'Sí' if promo_activa else 'No'}")
+            print(f"   - ¿Stock en {', '.join(TALLAS_OBJETIVO)}?: {'Sí' if hay_talla_objetivo_con_stock else 'No'}")
+
+            if promo_activa and hay_talla_objetivo_con_stock:
+                id_unico_oferta = f"{PRODUCT_ID}"
+                
+                if ya_notificado(id_unico_oferta):
+                    print("🤫 Oferta ya notificada previamente. No se enviará de nuevo.")
+                else:
+                    print("🎉 ¡OFERTA ENCONTRADA! Enviando notificación...")
+                    nombre = item.get("name", "Producto sin nombre")
+                    precio_promo = precios.get("promo", {}).get("value", "N/A")
+                    precio_base = precios.get("base", {}).get("value", "N/A")
+                    
+                    mensaje = (
+                        f"🚨 <b>¡Oferta encontrada!</b>\n"
+                        f"<a href='{PRODUCT_URL}'>{html.escape(nombre)}</a>\n\n"
+                        f"💰 <b>Precio: {precio_promo}€</b> (antes {precio_base}€)\n"
+                        f"📏 <b>Tallas disponibles:</b> {', '.join(sorted(set(tallas_disponibles_objetivo)))}"
+                    )
+            
+                    enviar_telegram(mensaje)
+                    marcar_como_notificado(id_unico_oferta)
+                
+                return
+        
+        offset += limit
+
+    if not producto_encontrado_en_ofertas:
+        print(f"❌ El producto {PRODUCT_ID} no se encuentra actualmente en la lista de ofertas.")
+        id_unico_oferta = f"{PRODUCT_ID}"
+        if ya_notificado(id_unico_oferta):
+            print("🗑️ La oferta previamente notificada ya no está disponible. Reseteando estado.")
+            # resetear_notificacion(id_unico_oferta) # Puedes descomentar esto
 
 def enviar_telegram(mensaje):
     """Envía un mensaje a través del bot de Telegram."""
