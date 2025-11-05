@@ -9,6 +9,7 @@ import time
 # --- IMPORTACIONES PARA EL SERVIDOR WEB ---
 from threading import Thread
 from flask import Flask
+from waitress import serve
 
 # --- CONFIGURACIÓN DE FLASK ---
 # Creamos servidor web fake para que Railway no cierre el bot por inactividad
@@ -216,7 +217,7 @@ if __name__ == "__main__":
         print("¡Archivo de estado borrado para prueba!")
 
     print("🚀 Iniciando el monitor de ofertas en un hilo (background)...")
-    monitor_thread = Thread(target=run_bot_background, daemon=True)
+    monitor_thread = Thread(target=run_bot_background)
     monitor_thread.start()
 
     print("🚀 Iniciando el servidor web (hilo principal) para Railway...")
@@ -224,7 +225,7 @@ if __name__ == "__main__":
         # ¡LA LÍNEA CRÍTICA!
         # NO hay valor por defecto. Lee el puerto que Railway le da.
         # Si 'PORT' no existe (ej. en tu PC), esto fallará con un error.
-        port = int(os.environ.get("PORT")) 
+        port = int(os.environ.get("PORT", 8080)) 
         
     except TypeError:
         print("-------------------------------------------------------")
