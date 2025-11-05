@@ -234,7 +234,6 @@ if __name__ == "__main__":
         print("-------------------------------------------------------")
         raise SystemExit # Salir del script si no hay puerto
 
-    # Ejecutar el servidor en el hilo principal
-    # Esto es lo que Railway espera.
-    print(f"✅ Servidor Flask iniciándose en host 0.0.0.0 y puerto {port}...")
-    app.run(host='0.0.0.0', port=port)
+
+    print(f"✅ Servidor Waitress iniciándose en host 0.0.0.0 y puerto {port}...")
+    serve(app, host='0.0.0.0', port=port)
