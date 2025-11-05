@@ -197,29 +197,43 @@ def main():
         print(f"--- Esperando {intervalo_minutos} minutos para la próxima revisión ---")
         time.sleep(intervalo_minutos * 60)
 
-# BORRADO DE PRUEBA: Añade esto temporalmente
-if os.path.exists(ESTADO_PATH):
-    os.remove(ESTADO_PATH)
-    print("¡Archivo de estado borrado para prueba!")
-# Fin de borrado
+def run_bot_background():
+    """Función que ejecuta tu bot 'main()' en un hilo secundario."""
+    # Damos 5 segundos para que el servidor Flask termine de arrancar
+    # antes de que el bot empiece a llenar el log.
+    print("🚀 Hilo del bot iniciado. Esperando 5s a que el servidor arranque...")
+    time.sleep(5)
+    
+    # Llama a tu función principal (la del 'while True')
+    main() 
 
+# El bloque principal que se ejecuta
 if __name__ == "__main__":
+    
+    # (Opcional: borrar el estado para prueba)
+    if os.path.exists(ESTADO_PATH):
+        os.remove(ESTADO_PATH)
+        print("¡Archivo de estado borrado para prueba!")
 
-    print("Iniciando servidor web para mantener el bot activo...")
-    # 1. Iniciar el servidor Flask en un hilo separado
-    monitor_thread = Thread(target=main, daemon=True)
+    print("🚀 Iniciando el monitor de ofertas en un hilo (background)...")
+    monitor_thread = Thread(target=run_bot_background, daemon=True)
     monitor_thread.start()
 
-    # 2. Iniciar el bucle principal del bot
-    print("Iniciando el bot de monitorización de ofertas...")
-    try: 
-        port = int(os.environ.get("PORT"))
-        app.run(host='0.0.0.0', port=port)
-
+    print("🚀 Iniciando el servidor web (hilo principal) para Railway...")
+    try:
+        # ¡LA LÍNEA CRÍTICA!
+        # NO hay valor por defecto. Lee el puerto que Railway le da.
+        # Si 'PORT' no existe (ej. en tu PC), esto fallará con un error.
+        port = int(os.environ.get("PORT")) 
+        
     except TypeError:
         print("-------------------------------------------------------")
         print("❌ ERROR: La variable de entorno 'PORT' no está definida.")
-        print("Asegúrate de estar en Railway/Render.")
-        print("El script no puede iniciarse sin un puerto asignado.")
+        print("El script no puede arrancar sin un puerto de Railway.")
         print("-------------------------------------------------------")
-        raise
+        raise SystemExit # Salir del script si no hay puerto
+
+    # Ejecutar el servidor en el hilo principal
+    # Esto es lo que Railway espera.
+    print(f"✅ Servidor Flask iniciándose en host 0.0.0.0 y puerto {port}...")
+    app.run(host='0.0.0.0', port=port)
