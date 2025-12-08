@@ -6,25 +6,25 @@ from datetime import datetime
 from dotenv import load_dotenv
 import time
 
-# --- IMPORTACIONES PARA EL SERVIDOR WEB ---
-from threading import Thread
-from flask import Flask
-from waitress import serve
+# # --- IMPORTACIONES PARA EL SERVIDOR WEB ---
+# from threading import Thread
+# from flask import Flask
+# from waitress import serve
 
-# --- CONFIGURACIÓN DE FLASK ---
-# Creamos servidor web fake para que Railway no cierre el bot por inactividad
-app = Flask(__name__)
+# # --- CONFIGURACIÓN DE FLASK ---
+# # Creamos servidor web fake para que Railway no cierre el bot por inactividad
+# app = Flask(__name__)
 
-@app.route('/')
-def health_check():
-    # Esta es la ruta que Railway usará para comprobar que el bot está activo
-    return "Bot de Uniqlo activo", 200
+# @app.route('/')
+# def health_check():
+#     # Esta es la ruta que Railway usará para comprobar que el bot está activo
+#     return "Bot de Uniqlo activo", 200
 
-def run_flask_app():
-    port = int(os.environ.get("PORT", 8000))
-    app.run(host='0.0.0.0', port=port)
+# def run_flask_app():
+#     port = int(os.environ.get("PORT", 8000))
+#     app.run(host='0.0.0.0', port=port)
 
-# --- FIN CONFIGURACIÓN DE FLASK ---
+# # --- FIN CONFIGURACIÓN DE FLASK ---
 
 
 
@@ -216,24 +216,26 @@ if __name__ == "__main__":
         os.remove(ESTADO_PATH)
         print("¡Archivo de estado borrado para prueba!")
 
-    print("🚀 Iniciando el monitor de ofertas en un hilo (background)...")
-    monitor_thread = Thread(target=run_bot_background)
-    monitor_thread.start()
+    # print("🚀 Iniciando el monitor de ofertas en un hilo (background)...")
+    # monitor_thread = Thread(target=run_bot_background)
+    # monitor_thread.start()
 
-    print("🚀 Iniciando el servidor web (hilo principal) para Railway...")
-    try:
-        # ¡LA LÍNEA CRÍTICA!
-        # NO hay valor por defecto. Lee el puerto que Railway le da.
-        # Si 'PORT' no existe (ej. en tu PC), esto fallará con un error.
-        port = int(os.environ.get("PORT", 8080)) 
+    # print("🚀 Iniciando el servidor web (hilo principal) para Railway...")
+    # try:
+    #     # ¡LA LÍNEA CRÍTICA!
+    #     # NO hay valor por defecto. Lee el puerto que Railway le da.
+    #     # Si 'PORT' no existe (ej. en tu PC), esto fallará con un error.
+    #     port = int(os.environ.get("PORT", 8080)) 
         
-    except TypeError:
-        print("-------------------------------------------------------")
-        print("❌ ERROR: La variable de entorno 'PORT' no está definida.")
-        print("El script no puede arrancar sin un puerto de Railway.")
-        print("-------------------------------------------------------")
-        raise SystemExit # Salir del script si no hay puerto
+    # except TypeError:
+    #     print("-------------------------------------------------------")
+    #     print("❌ ERROR: La variable de entorno 'PORT' no está definida.")
+    #     print("El script no puede arrancar sin un puerto de Railway.")
+    #     print("-------------------------------------------------------")
+    #     raise SystemExit # Salir del script si no hay puerto
 
 
-    print(f"✅ Servidor Waitress iniciándose en host 0.0.0.0 y puerto {port}...")
-    serve(app, host='0.0.0.0', port=port)
+    # print(f"✅ Servidor Waitress iniciándose en host 0.0.0.0 y puerto {port}...")
+    # serve(app, host='0.0.0.0', port=port)
+
+    main()
